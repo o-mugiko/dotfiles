@@ -125,3 +125,4 @@ nmap <Esc><Esc> :nohlsearch<CR><Esc>
 
 set viminfo='20,\"1000
 
+set clipboard+=unnamedplus
