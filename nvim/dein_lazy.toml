@@ -1,0 +1,111 @@
+#dein lazy toml
+#deoplete(補完)-------------------------------------------
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+on_event = 'InsertCharPre'
+hook_source = '''
+  let g:deoplete#enable_at_startup = 1
+  let g:deoplete#auto_complete_delay = 0
+  let g:deoplete#auto_complete_start_length = 1
+  let g:deoplete#enable_camel_case = 0
+  let g:deoplete#enable_ignore_case = 0
+  let g:deoplete#enable_refresh_always = 0
+  let g:deoplete#enable_smart_case = 1
+  let g:deoplete#file#enable_buffer_path = 1
+  let g:deoplete#max_list = 1000
+  inoremap <expr><tab> pumvisible() ? "\<C-n>" :
+        \ neosnippet#expandable_or_jumpable() ?
+        \    "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
+'''
+on_i = 1
+
+[[plugins]]
+repo = 'Shougo/neco-vim'
+on_source=['deoplete']
+
+[[plugins]]
+repo = 'Shougo/neco-syntax'
+on_event = 'InsertEnter'
+
+[[plugins]]
+repo = 'Shougo/neosnippet.vim'
+hook_source = '''
+  imap <C-k> <Plug>(neosnippet_expand_or_jump)
+  smap <C-k> <Plug>(neosnippet_expand_or_jump)
+  xmap <C-k> <Plug>(neosnippet_expand_target)
+  if has('conceal')
+    set conceallevel=0 concealcursor=niv
+  endif
+'''
+on_event = 'InsertEnter'
+depends = ['neosnippet-snippets']
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+
+hook_add='''
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+nnoremap <C-t> :NERDTreeToggle<CR>
+'''
+
+
+#lexima.vim(括弧抜け設定)-------------------------------------
+
+[[plugins]]
+repo = 'cohama/lexima.vim'
+
+hook_source= """
+call lexima#add_rule({'char': '<TAB>', 'at': '\\%#)', 'leave': 1})
+call lexima#add_rule({'char': '<TAB>', 'at': '\\%#"', 'leave': 1})
+call lexima#add_rule({'char': '<TAB>', 'at': '\\%#''', 'leave': 1})
+call lexima#add_rule({'char': '<TAB>', 'at': '\\%#]', 'leave': 1})
+call lexima#add_rule({'char': '<TAB>', 'at': '\\%#}', 'leave': 1})
+"""
+on_i=1
+
+
+[[plugins]]
+repo = 'davidhalter/jedi'
+on_ft='python'
+
+[[plugins]]
+repo = 'zchee/deoplete-jedi'
+on_ft='python'
+
+hook_source='''
+let g:deoplete#sources#jedi#server_timeout=20
+'''
+
+[[plugins]]
+repo = 'lervag/vimtex'
+on_ft=['tex']
+hook_source='''
+let g:tex_flavor  = 'lualatex'
+let g:tex_conceal = ''
+let g:vimtex_fold_manual = 1
+let g:vimtex_latexmk_continuous = 1
+let g:vimtex_compiler_progname = 'nvr'
+let g:vimtex_view_method = 'zathura'
+
+let g:vimtex_compiler_latexmk = {
+      \ 'background': 1,
+      \ 'build_dir': '',
+      \ 'continuous': 1,
+      \ 'options': [],}
+let g:vimtex_view_general_viewer = 'zathura'
+let g:vimtex_view_general_options = '-r @line @pdf @tex'
+call deoplete#custom#var('omni', 'input_patterns', {'tex':g:vimtex#re#deoplete })
+'''
+
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+
